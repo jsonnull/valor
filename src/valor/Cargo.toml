@@ -1,0 +1,18 @@
+[package]
+name = "valor"
+version = "0.0.0-test"
+authors = ["Jason Nall <jsonnull@gmail.com>"]
+workspace = "../.."
+
+[lib]
+name = "valor"
+path = "src/lib.rs"
+
+[dependencies]
+gfx = "0.16.1"
+glutin = "0.9.2"
+gfx_window_glutin = "0.17.0"
+gfx_device_gl = "0.14.3"
+gfx_text = "*"
+cgmath = "*"
+id_tree = "*"

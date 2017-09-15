@@ -1,0 +1,14 @@
+[package]
+name = "valor-example-basic"
+version = "0.0.0"
+authors = ["Jason Nall <jsonnull@gmail.com>"]
+workspace = "../.."
+
+[[bin]]
+name = "valor-example-basic"
+path = "main.rs"
+
+[dependencies]
+glutin = "0.9.2"
+cgmath = "*"
+valor = { path = "../../src/valor", version = "0.0.0-test" }

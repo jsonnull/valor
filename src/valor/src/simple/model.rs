@@ -1,10 +1,10 @@
 use std::rc::Rc;
 use std::cell::RefCell;
-use gfx::traits::FactoryExt;
-use cgmath::{Matrix4, Vector3, One};
+use cgmath::{Matrix4, One, Vector3};
+use glium;
 use Renderer;
-use Vertex;
-use defines::GpuData;
+use Handle;
+use super::vertex::Vertex;
 
 /// Data structure with vertex data and underlying GPU representation, shared among all instances.
 pub struct Model {
@@ -12,38 +12,32 @@ pub struct Model {
     pub vertices: Vec<Vertex>,
     /// A static per-model (not per-instance) transform
     pub transform: Matrix4<f32>,
-    /// The params which are sent through the pipeline to the shader program
-    pub gpu_data: GpuData,
+    /// The vertex buffer sent to the GPU
+    pub vertex_buffer: glium::VertexBuffer<Vertex>,
+    /// Indices on the vertex buffer sent to the GPU
+    pub indices: glium::index::NoIndices,
+    // pub gpu_data: GpuData,
     /// Flag to indicate the model gpu data needs to be refreshed
     pub is_dirty: bool,
 }
 
-pub type ModelHandle = Rc<RefCell<Model>>;
-
 impl Model {
     /// Create a new instance of the model
-    pub fn new(mut renderer: &mut Renderer, vertices: &[Vertex]) -> ModelHandle {
-        let (vertex_buffer, slice) = renderer.factory.create_vertex_buffer_with_slice(
-            vertices,
-            (),
-        );
-
-        let locals = renderer.factory.create_constant_buffer(1);
-
-        let gpu_data = GpuData {
-            slice,
-            vertices: vertex_buffer,
-            locals,
-        };
+    pub fn new(renderer: &mut Renderer, vertices: &[Vertex]) -> Handle<Self> {
+        let vertex_buffer = glium::VertexBuffer::new(&renderer.display, &vertices).unwrap();
+        let indices = glium::index::NoIndices(glium::index::PrimitiveType::TrianglesList);
 
         let transform: Matrix4<f32> = Matrix4::one();
 
-        Rc::new(RefCell::new(Model {
+        let model = Model {
             vertices: vertices.to_vec(),
             transform,
-            gpu_data,
+            vertex_buffer,
+            indices,
             is_dirty: false,
-        }))
+        };
+
+        Rc::new(RefCell::new(Box::new(model)))
     }
 
     /*

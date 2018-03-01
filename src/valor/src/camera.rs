@@ -1,4 +1,4 @@
-use cgmath::{Vector3, Matrix4, Deg, perspective};
+use cgmath::{perspective, Deg, Matrix4, Vector3};
 
 /// Perspective camera with positioning controls.
 pub struct Camera {
@@ -27,8 +27,8 @@ impl Camera {
     }
 
     pub fn get_view_proj(&self) -> Matrix4<f32> {
-        let rotation = Matrix4::from_angle_x(Deg(self.pitch)) *
-                       Matrix4::from_angle_y(Deg(self.yaw));
+        let rotation =
+            Matrix4::from_angle_x(Deg(self.pitch)) * Matrix4::from_angle_y(Deg(self.yaw));
 
         let translation = Matrix4::from_translation(self.position);
 

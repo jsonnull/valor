@@ -9,6 +9,7 @@ name = "valor-example-basic"
 path = "main.rs"
 
 [dependencies]
+glium = "0.17.1"
 glutin = "0.9.2"
 cgmath = "0.15.0"
 valor = { path = "../../src/valor", version = "0.0.0-test" }

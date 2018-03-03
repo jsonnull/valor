@@ -1,9 +1,11 @@
 use id_tree::{Node, NodeId, Tree, TreeBuilder};
 use cgmath::{Matrix4, One};
 
+mod address;
 mod node;
 mod traversal;
 
+pub use self::address::SceneAddress;
 pub use self::node::{SceneNode, SceneNodeEntry};
 pub use self::traversal::SceneTraversal;
 
@@ -63,12 +65,15 @@ impl<T> Scene<T> {
         transform
     }
 
-    pub fn insert(&mut self, node: SceneNode<T>, parent_id: &NodeId) -> NodeId {
+    pub fn insert(&mut self, node: SceneNode<T>, address: SceneAddress) -> NodeId {
         use id_tree::InsertBehavior::*;
 
-        let child_id = self.graph
-            .insert(Node::new(node), UnderNode(parent_id))
-            .unwrap();
+        let location = match address {
+            SceneAddress::Root => UnderNode(&self.root_id),
+            SceneAddress::Parent(ref parent_id) => UnderNode(&parent_id),
+        };
+
+        let child_id = self.graph.insert(Node::new(node), location).unwrap();
 
         child_id
     }

@@ -2,7 +2,7 @@ extern crate cgmath;
 extern crate glutin;
 extern crate valor;
 
-use valor::{Camera, Handle, Material, Scene, SceneNode, SceneNodeEntry, ValorBuilder};
+use valor::{Camera, Handle, Material, Scene, SceneAddress, SceneNode, SceneNodeEntry, ValorBuilder};
 use valor::simple::{Material as SimpleMaterial, Model, Vertex};
 use cgmath::Vector3;
 
@@ -22,7 +22,6 @@ pub fn main() {
     let camera = Camera::new();
 
     let mut scene = Scene::new();
-    let root_node = scene.get_root_id();
 
     let vertices = &[
         Vertex::new(-0.5, -0.5, 1.0, RED),
@@ -38,7 +37,7 @@ pub fn main() {
 
     let mut triangle_node = SceneNode::new(SceneNodeEntry::Model(triangle));
     triangle_node.translate(Vector3::new(0.0, -0.2, -2.0));
-    scene.insert(triangle_node, &root_node);
+    scene.insert(triangle_node, SceneAddress::Root);
 
     // Create text
     // let text: TextHandle = Text::new("Basic example", [10, 10], WHITE);

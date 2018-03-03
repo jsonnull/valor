@@ -21,12 +21,9 @@ pub mod simple;
 
 pub use builder::ValorBuilder;
 pub use camera::Camera;
-pub use text::Text;
-pub use text::TextHandle;
+pub use text::{Text, TextHandle};
 pub use renderer::Renderer;
-pub use scene::SceneNode;
-pub use scene::SceneNodeEntry;
-pub use scene::Scene;
+pub use scene::{Scene, SceneAddress, SceneNode, SceneNodeEntry};
 pub use material::Material;
 
 pub type Handle<T> = Rc<RefCell<Box<T>>>;

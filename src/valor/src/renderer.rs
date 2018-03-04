@@ -1,20 +1,22 @@
 use glium;
 
-/// Interface responsible for window creation and scene traversal for drawing.
+/// Interface responsible for window creation and initiating drawing.
 pub struct Renderer {
+    /// The underlying `glium::Display` we abstract over.
     pub display: glium::Display,
 
-    /// Color for OpenGL clear command
+    /// Color for OpenGL clear command.
     clear_color: [f32; 4],
 
-    /// Width of the frame
+    /// Width of the frame.
     pub width: u32,
-    /// Height of the frame
+    /// Height of the frame.
     pub height: u32,
 }
 
 impl Renderer {
-    /// Create a new rendering instance. You should probably use `ValorBuilder` instead of this method.
+    /// Create a new rendering instance. You should probably use `ValorBuilder`
+    /// instead of this method.
     pub(crate) fn new(
         display: glium::Display,
         clear_color: [f32; 4],
@@ -29,13 +31,15 @@ impl Renderer {
         }
     }
 
-    /// Setter for the frame dimensions.
+    /// Setter for the frame dimensions, as these can change over the course of
+    /// a window's lifetime.
     pub fn set_dimensions(&mut self, width: u32, height: u32) {
         self.width = width;
         self.height = height;
     }
 
-    /// Perform a frame draw
+    /// Initiate a frame draw. This will begin the frame and call `callback`
+    /// when the frame is ready to be drawn to.
     pub fn render<F>(&mut self, callback: F)
     where
         F: Fn(&mut glium::Frame),

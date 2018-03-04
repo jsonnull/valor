@@ -48,6 +48,7 @@ impl Model {
     }
     */
 
+    /// Perform a translation on the model, updating it's `transform` Matrix
     // TODO: Do not allow translation on models, but set transform manually
     pub fn translate(&mut self, translation: Vector3<f32>) {
         self.transform = self.transform * Matrix4::from_translation(translation);

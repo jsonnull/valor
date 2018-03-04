@@ -1,7 +1,7 @@
 use std::rc::Rc;
 use std::cell::RefCell;
 
-/// Data structure with vertex data and underlying GPU representation, shared among all instances.
+/// Data structure for instances of text to be rendered.
 pub struct Text {
     /// The string to be drawn
     pub data: &'static str,
@@ -11,6 +11,7 @@ pub struct Text {
     pub color: [f32; 4],
 }
 
+/// Utility type for storing Text on a scene
 pub type TextHandle = Rc<RefCell<Text>>;
 
 impl Text {

@@ -2,7 +2,9 @@ extern crate cgmath;
 extern crate glutin;
 extern crate valor;
 
-use valor::{Camera, Handle, Material, Scene, SceneAddress, SceneNode, SceneNodeEntry, ValorBuilder};
+use valor::ValorBuilder;
+use valor::camera::Camera;
+use valor::scene::{Address, Node, NodeEntry, Scene};
 use valor::simple::{Material as SimpleMaterial, Model, Vertex};
 use cgmath::Vector3;
 
@@ -33,11 +35,11 @@ pub fn main() {
     let material = SimpleMaterial::new(&renderer.display);
 
     // Create Triangle
-    let triangle: Handle<Model> = Model::new(&mut renderer, vertices);
+    let triangle = Model::new(&mut renderer, vertices);
 
-    let mut triangle_node = SceneNode::new(SceneNodeEntry::Model(triangle));
+    let mut triangle_node = Node::new(NodeEntry::Model(triangle));
     triangle_node.translate(Vector3::new(0.0, -0.2, -2.0));
-    scene.insert(triangle_node, SceneAddress::Root);
+    scene.insert(triangle_node, Address::Root);
 
     // Create text
     // let text: TextHandle = Text::new("Basic example", [10, 10], WHITE);
@@ -51,10 +53,12 @@ pub fn main() {
 
         // Draw frame
         renderer.render(|mut target| {
+            use valor::Material;
+
             // Iterate over the entries in the scene graph
             for (node, parent_id) in scene.traverse() {
                 match node.entry {
-                    SceneNodeEntry::Model(ref model) => {
+                    NodeEntry::Model(ref model) => {
                         // Update locals with transform
                         // TODO: cache locals on scene graph
                         let u_world: [[f32; 4]; 4] = scene.get_transform(node, parent_id).into();
@@ -71,7 +75,7 @@ pub fn main() {
                         // Draw text.
                         // self.text.draw(&mut self.encoder, &self.main_color).unwrap();
                     // },
-                    SceneNodeEntry::Empty => {}
+                    NodeEntry::Empty => {}
                 };
             }
         });

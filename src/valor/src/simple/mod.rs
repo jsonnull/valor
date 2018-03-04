@@ -1,3 +1,4 @@
+//! Implements a basic material you can use.
 mod model;
 mod vertex;
 mod material;

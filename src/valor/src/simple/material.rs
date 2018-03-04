@@ -4,11 +4,13 @@ use Handle;
 
 pub use super::Model;
 
+/// Implementor of `Material`, used to draw models in the `simple` module
 pub struct SimpleMaterial {
     program: glium::program::Program,
 }
 
 impl SimpleMaterial {
+    /// Create a new instance
     pub fn new(display: &glium::Display) -> Self {
         let program = glium::Program::from_source(
             display,

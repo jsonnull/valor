@@ -4,6 +4,21 @@ use Renderer;
 const BLACK: [f32; 4] = [0.0, 0.0, 0.0, 1.0];
 
 /// Configuration object for initializing `Renderer` and window systems.
+///
+/// # Example
+///
+/// ```
+/// use valor::ValorBuilder;
+///
+/// const LIGHT_BLUE: [f32; 4] = [0.1, 0.2, 0.3, 1.0];
+///
+/// let (mut events_loop, mut renderer) = ValorBuilder::new()
+///     .with_title(&"Basic example")
+///     .with_dimensions(800, 600)
+///     .with_clear_color(LIGHT_BLUE)
+///     .with_vsync(true)
+///     .finish();
+/// ```
 pub struct ValorBuilder {
     title: &'static str,
     width: u32,
@@ -13,6 +28,7 @@ pub struct ValorBuilder {
 }
 
 impl ValorBuilder {
+    /// Construct a new builder instance with default values
     pub fn new() -> Self {
         ValorBuilder {
             title: "Valor",
@@ -23,27 +39,33 @@ impl ValorBuilder {
         }
     }
 
+    /// Update the resulting window title
     pub fn with_title(mut self, title: &'static str) -> Self {
         self.title = title;
         self
     }
 
+    /// Update the starting dimensions of the window
     pub fn with_dimensions(mut self, width: u32, height: u32) -> Self {
         self.width = width;
         self.height = height;
         self
     }
 
+    /// Update whether the resulting window should use vsync
     pub fn with_vsync(mut self, vsync: bool) -> Self {
         self.vsync = vsync;
         self
     }
 
+    /// Update the clear color used at the beginning of each frame draw the
+    /// `Renderer` performs
     pub fn with_clear_color(mut self, clear_color: [f32; 4]) -> Self {
         self.clear_color = clear_color;
         self
     }
 
+    /// Complete the build
     pub fn finish(self) -> (glium::glutin::EventsLoop, Renderer) {
         // Prepare Glutin builders
         let events_loop = glium::glutin::EventsLoop::new();

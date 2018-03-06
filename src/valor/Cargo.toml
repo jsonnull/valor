@@ -12,5 +12,6 @@ path = "src/lib.rs"
 
 [dependencies]
 glium = "0.17.1"
+glutin = "0.9.2"
 cgmath = "0.15.0"
 id_tree = "1.1.3"

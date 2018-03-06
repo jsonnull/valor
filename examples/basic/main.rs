@@ -1,12 +1,11 @@
-extern crate cgmath;
-extern crate glutin;
 extern crate valor;
 
 use valor::ValorBuilder;
 use valor::camera::Camera;
 use valor::scene::{Address, Node, NodeEntry, Scene};
 use valor::simple::{Material as SimpleMaterial, Model, Vertex};
-use cgmath::Vector3;
+use valor::cgmath::Vector3;
+use valor::glutin;
 
 const LIGHT_BLUE: [f32; 4] = [0.1, 0.2, 0.3, 1.0];
 const RED: [f32; 3] = [1.0, 0.0, 0.0];

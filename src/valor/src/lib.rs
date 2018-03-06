@@ -26,9 +26,10 @@
 
 #![deny(missing_docs)]
 
-extern crate cgmath;
+pub extern crate cgmath;
 #[macro_use]
-extern crate glium;
+pub extern crate glium;
+pub extern crate glutin;
 extern crate id_tree;
 
 use std::rc::Rc;

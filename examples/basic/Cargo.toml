@@ -9,4 +9,4 @@ name = "valor-example-basic"
 path = "main.rs"
 
 [dependencies]
-valor = { path = "../../src/valor", version = "0.0.0-test" }
+valor = { path = "../../src/valor" }

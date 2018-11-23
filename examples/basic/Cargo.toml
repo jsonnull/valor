@@ -11,3 +11,4 @@ path = "main.rs"
 
 [dependencies]
 valor = { path = "../../src/valor" }
+valor_camera = { path = "../../src/valor_camera" }

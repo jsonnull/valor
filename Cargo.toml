@@ -2,5 +2,6 @@
 
 members = [
   "src/valor",
+  "src/valor_camera",
   "examples/basic"
 ]

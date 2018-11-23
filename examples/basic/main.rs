@@ -1,11 +1,9 @@
-extern crate valor;
-
-use valor::camera::Camera;
 use valor::cgmath::Vector3;
 use valor::glutin;
 use valor::scene::{Address, Node, NodeEntry, Scene};
 use valor::simple::{Material as SimpleMaterial, Model, Vertex};
 use valor::ValorBuilder;
+use valor_camera::Camera;
 
 const LIGHT_BLUE: [f32; 4] = [0.1, 0.2, 0.3, 1.0];
 const RED: [f32; 3] = [1.0, 0.0, 0.0];
@@ -15,7 +13,7 @@ const BLUE: [f32; 3] = [0.0, 0.0, 1.0];
 pub fn main() {
     let (mut events_loop, mut renderer) = ValorBuilder::new()
         .with_title(&"Basic example")
-        .with_dimensions(800, 600)
+        .with_dimensions(800.0, 600.0)
         .with_clear_color(LIGHT_BLUE)
         .with_vsync(true)
         .finish();
@@ -90,7 +88,7 @@ pub fn main() {
                         },
                     ..
                 }
-                | glutin::WindowEvent::Closed => {
+                | glutin::WindowEvent::CloseRequested => {
                     running = false;
                 }
                 _ => {}

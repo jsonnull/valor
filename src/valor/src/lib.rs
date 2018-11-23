@@ -28,13 +28,12 @@
 
 pub use cgmath;
 pub use glium;
-pub use glutin;
+pub use glium::glutin;
 
 use std::cell::RefCell;
 use std::rc::Rc;
 
 mod builder;
-pub mod camera;
 mod material;
 mod renderer;
 pub mod scene;

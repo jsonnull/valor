@@ -37,7 +37,7 @@ impl Camera {
     pub fn new() -> Self {
         let position = Vector3::new(0.0, 0.0, 0.0);
 
-        let aspect = 4.0f32 / 3.0f32;
+        let aspect = 4.0 / 3.0;
         let perspective = perspective(Deg(FOV), aspect, 0.1, 50.0);
 
         Camera {

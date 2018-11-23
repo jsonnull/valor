@@ -21,8 +21,8 @@ const BLACK: [f32; 4] = [0.0, 0.0, 0.0, 1.0];
 /// ```
 pub struct ValorBuilder {
     title: &'static str,
-    width: u32,
-    height: u32,
+    width: f64,
+    height: f64,
     vsync: bool,
     clear_color: [f32; 4],
 }
@@ -32,8 +32,8 @@ impl ValorBuilder {
     pub fn new() -> Self {
         ValorBuilder {
             title: "Valor",
-            width: 640,
-            height: 480,
+            width: 640.0,
+            height: 480.0,
             vsync: false,
             clear_color: BLACK,
         }
@@ -46,7 +46,7 @@ impl ValorBuilder {
     }
 
     /// Update the starting dimensions of the window
-    pub fn with_dimensions(mut self, width: u32, height: u32) -> Self {
+    pub fn with_dimensions(mut self, width: f64, height: f64) -> Self {
         self.width = width;
         self.height = height;
         self
@@ -71,13 +71,16 @@ impl ValorBuilder {
         let events_loop = glium::glutin::EventsLoop::new();
         let builder = glium::glutin::WindowBuilder::new()
             .with_title(self.title)
-            .with_dimensions(self.width, self.height);
+            .with_dimensions(glium::glutin::dpi::LogicalSize::new(
+                self.width,
+                self.height,
+            ));
         let context = glium::glutin::ContextBuilder::new().with_vsync(self.vsync);
 
         let window = glium::Display::new(builder, context, &events_loop).unwrap();
 
-        let (width, height) = match window.gl_window().get_inner_size_pixels() {
-            Some((w, h)) => (w, h),
+        let (width, height): (u32, u32) = match window.gl_window().get_inner_size() {
+            Some(size) => size.into(),
             None => (0, 0),
         };
 

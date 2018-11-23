@@ -1,5 +1,5 @@
 [package]
-name = "valor"
+name = "valor_camera"
 version = "0.0.0-test"
 authors = ["Jason Nall <jsonnull@gmail.com>"]
 workspace = "../.."
@@ -8,10 +8,8 @@ description = "Ergonomic rendering engine for games in Rust."
 license = "MIT"
 
 [lib]
-name = "valor"
+name = "valor_camera"
 path = "src/lib.rs"
 
 [dependencies]
-glium = "0.22.0"
-cgmath = "0.16.1"
-id_tree = "1.3.0"
+cgmath = "0.15.0"

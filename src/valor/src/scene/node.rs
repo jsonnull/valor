@@ -22,7 +22,7 @@ impl<T> Node<T> {
     /// Construct a new scene node which holds the given entry
     pub fn new(entry: NodeEntry<T>) -> Self {
         Node {
-            entry: entry,
+            entry,
             transform: Matrix4::one(),
         }
     }

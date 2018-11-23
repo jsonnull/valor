@@ -1,3 +1,5 @@
+use glium::implement_vertex;
+
 #[derive(Copy, Clone)]
 /// Simple implementation for a vertex used by our material.
 ///

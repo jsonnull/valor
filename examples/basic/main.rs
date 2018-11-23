@@ -1,11 +1,11 @@
 extern crate valor;
 
-use valor::ValorBuilder;
 use valor::camera::Camera;
-use valor::scene::{Address, Node, NodeEntry, Scene};
-use valor::simple::{Material as SimpleMaterial, Model, Vertex};
 use valor::cgmath::Vector3;
 use valor::glutin;
+use valor::scene::{Address, Node, NodeEntry, Scene};
+use valor::simple::{Material as SimpleMaterial, Model, Vertex};
+use valor::ValorBuilder;
 
 const LIGHT_BLUE: [f32; 4] = [0.1, 0.2, 0.3, 1.0];
 const RED: [f32; 3] = [1.0, 0.0, 0.0];
@@ -66,13 +66,13 @@ pub fn main() {
                         material.draw(&mut target, model.clone(), view_proj_matrix, u_world);
                     }
                     // SceneNodeEntry::Text(ref text) => {
-                        // let text = text.borrow_mut();
+                    // let text = text.borrow_mut();
 
-                        // Add some text 10 pixels down and right from the top left screen corner.
-                        // self.text.add(&text.data, text.position, text.color);
+                    // Add some text 10 pixels down and right from the top left screen corner.
+                    // self.text.add(&text.data, text.position, text.color);
 
-                        // Draw text.
-                        // self.text.draw(&mut self.encoder, &self.main_color).unwrap();
+                    // Draw text.
+                    // self.text.draw(&mut self.encoder, &self.main_color).unwrap();
                     // },
                     NodeEntry::Empty => {}
                 };

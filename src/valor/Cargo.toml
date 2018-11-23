@@ -3,6 +3,7 @@ name = "valor"
 version = "0.0.0-test"
 authors = ["Jason Nall <jsonnull@gmail.com>"]
 workspace = "../.."
+edition = "2018"
 description = "Ergonomic rendering engine for games in Rust."
 license = "MIT"
 

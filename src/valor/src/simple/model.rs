@@ -1,10 +1,10 @@
-use std::rc::Rc;
-use std::cell::RefCell;
+use super::vertex::Vertex;
+use crate::Handle;
+use crate::Renderer;
 use cgmath::{Matrix4, One, Vector3};
 use glium;
-use Renderer;
-use Handle;
-use super::vertex::Vertex;
+use std::cell::RefCell;
+use std::rc::Rc;
 
 /// Data structure with vertex data and underlying GPU representation, shared among all instances.
 pub struct Model {

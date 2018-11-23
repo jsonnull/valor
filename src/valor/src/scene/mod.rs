@@ -1,7 +1,7 @@
 //! An easy way to create, manipulate, and traverse component trees.
 
-use id_tree::{Node as IdTreeNode, NodeId, Tree, TreeBuilder};
 use cgmath::{Matrix4, One};
+use id_tree::{Node as IdTreeNode, NodeId, Tree, TreeBuilder};
 
 mod address;
 mod node;
@@ -47,7 +47,8 @@ impl<T> Scene<T> {
         // Pool transforms for ancestors of the node
         if let Some(id) = parent_id {
             // Get ancestor transforms
-            transforms = self.graph
+            transforms = self
+                .graph
                 .ancestors(id)
                 .unwrap()
                 .map(|n| n.data().transform)
@@ -64,9 +65,7 @@ impl<T> Scene<T> {
         transforms.push(node.transform);
 
         // Multiply transforms out
-        let transform = transforms.iter().fold(identity, |acc, t| acc * t);
-
-        transform
+        transforms.iter().fold(identity, |acc, t| acc * t)
     }
 
     /// Insert an item into the scene at a given location

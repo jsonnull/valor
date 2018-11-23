@@ -1,5 +1,5 @@
+use crate::Handle;
 use glium;
-use Handle;
 
 /// A material performs the drawing operation for a model.
 ///

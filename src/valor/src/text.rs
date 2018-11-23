@@ -1,5 +1,5 @@
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 
 /// Data structure for instances of text to be rendered.
 pub struct Text {

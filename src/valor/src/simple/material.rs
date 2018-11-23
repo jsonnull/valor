@@ -1,6 +1,7 @@
+use crate::Handle;
+use crate::Material;
 use glium;
-use Material;
-use Handle;
+use glium::uniform;
 
 pub use super::Model;
 
@@ -17,7 +18,8 @@ impl SimpleMaterial {
             include_str!("shaders/triangle_150_vs.glsl"),
             include_str!("shaders/triangle_150_fs.glsl"),
             None,
-        ).unwrap();
+        )
+        .unwrap();
 
         SimpleMaterial { program }
     }

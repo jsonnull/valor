@@ -3,6 +3,7 @@ name = "valor-example-basic"
 version = "0.0.0"
 authors = ["Jason Nall <jsonnull@gmail.com>"]
 workspace = "../.."
+edition = "2018"
 
 [[bin]]
 name = "valor-example-basic"

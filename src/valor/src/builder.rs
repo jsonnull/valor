@@ -1,5 +1,5 @@
+use crate::Renderer;
 use glium;
-use Renderer;
 
 const BLACK: [f32; 4] = [0.0, 0.0, 0.0, 1.0];
 

@@ -26,27 +26,25 @@
 
 #![deny(missing_docs)]
 
-pub extern crate cgmath;
-#[macro_use]
-pub extern crate glium;
-pub extern crate glutin;
-extern crate id_tree;
+pub use cgmath;
+pub use glium;
+pub use glutin;
 
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 
 mod builder;
-mod renderer;
-mod text;
-mod material;
 pub mod camera;
+mod material;
+mod renderer;
 pub mod scene;
 pub mod simple;
+mod text;
 
-pub use builder::ValorBuilder;
-pub use text::{Text, TextHandle};
-pub use renderer::Renderer;
-pub use material::Material;
+pub use crate::builder::ValorBuilder;
+pub use crate::material::Material;
+pub use crate::renderer::Renderer;
+pub use crate::text::{Text, TextHandle};
 
 /// Utility type used when passing around models
 pub type Handle<T> = Rc<RefCell<Box<T>>>;

@@ -1,5 +1,5 @@
-use id_tree::*;
 use super::Node;
+use id_tree::*;
 
 /// `Iterator` over `Node`s in a `Scene`.
 pub struct Traversal<'a, T: 'a> {
@@ -9,7 +9,7 @@ pub struct Traversal<'a, T: 'a> {
 impl<'a, T> Traversal<'a, T> {
     /// Create a new new traversal from the `id_tree`'s traversal.
     pub fn new(iter: PreOrderTraversal<'a, Node<T>>) -> Self {
-        Traversal { iter: iter }
+        Traversal { iter }
     }
 }
 

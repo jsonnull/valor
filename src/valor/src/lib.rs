@@ -36,7 +36,6 @@ use std::rc::Rc;
 mod builder;
 mod material;
 mod renderer;
-pub mod scene;
 pub mod simple;
 mod text;
 

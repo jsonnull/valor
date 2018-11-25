@@ -1,14 +1,18 @@
 use valor::cgmath::Vector3;
-use valor::glutin;
-use valor::scene::{Address, Node, NodeEntry, Scene};
 use valor::simple::{Material as SimpleMaterial, Model, Vertex};
-use valor::ValorBuilder;
+use valor::{glutin, Handle, ValorBuilder};
 use valor_camera::Camera;
+use valor_scene::Scene;
 
 const LIGHT_BLUE: [f32; 4] = [0.1, 0.2, 0.3, 1.0];
 const RED: [f32; 3] = [1.0, 0.0, 0.0];
 const GREEN: [f32; 3] = [0.0, 1.0, 0.0];
 const BLUE: [f32; 3] = [0.0, 0.0, 1.0];
+
+enum SceneEntry {
+    Model(Handle<Model>),
+    Empty,
+}
 
 pub fn main() {
     let (mut events_loop, mut renderer) = ValorBuilder::new()
@@ -20,7 +24,9 @@ pub fn main() {
 
     let camera = Camera::new();
 
-    let mut scene = Scene::new();
+    // Create a scene with string ids
+    let mut scene = Scene::new(SceneEntry::Empty);
+    let root = scene.get_root();
 
     let vertices = &[
         Vertex::new(-0.5, -0.5, 1.0, RED),
@@ -34,14 +40,11 @@ pub fn main() {
     // Create Triangle
     let triangle = Model::new(&mut renderer, vertices);
 
-    let mut triangle_node = Node::new(NodeEntry::Model(triangle));
-    triangle_node.translate(Vector3::new(0.0, -0.2, -2.0));
-    scene.insert(triangle_node, Address::Root);
+    let triangle_index = scene.create_node(SceneEntry::Model(triangle));
+    scene.translate(triangle_index, Vector3::new(0.0, -0.2, -2.0));
+    scene.add_child(root, triangle_index);
 
-    // Create text
-    // let text: TextHandle = Text::new("Basic example", [10, 10], WHITE);
-    // let text_node = SceneNode::new(SceneNodeEntry::Text(text));
-    // scene.insert(text_node, &root_node);
+    // scene.find(ROOT).unwrap().add_child(triangle_node);
 
     let mut running = true;
     while running {
@@ -53,27 +56,18 @@ pub fn main() {
             use valor::Material;
 
             // Iterate over the entries in the scene graph
-            for (node, parent_id) in scene.traverse() {
-                match node.entry {
-                    NodeEntry::Model(ref model) => {
+            for (_id, entry, transform) in scene.traverse() {
+                match entry {
+                    SceneEntry::Model(ref model) => {
                         // Update locals with transform
                         // TODO: cache locals on scene graph
-                        let u_world: [[f32; 4]; 4] = scene.get_transform(node, parent_id).into();
+                        let u_world: [[f32; 4]; 4] = transform.into();
 
                         // Ensure usage of the correct material here
                         material.draw(&mut target, model.clone(), view_proj_matrix, u_world);
                     }
-                    // SceneNodeEntry::Text(ref text) => {
-                    // let text = text.borrow_mut();
-
-                    // Add some text 10 pixels down and right from the top left screen corner.
-                    // self.text.add(&text.data, text.position, text.color);
-
-                    // Draw text.
-                    // self.text.draw(&mut self.encoder, &self.main_color).unwrap();
-                    // },
-                    NodeEntry::Empty => {}
-                };
+                    SceneEntry::Empty => {}
+                }
             }
         });
 

@@ -1,7 +1,7 @@
 use valor::cgmath::Vector3;
 use valor::simple::{Material as SimpleMaterial, Model, Vertex};
 use valor::{glutin, Handle, ValorBuilder};
-use valor_camera::Camera;
+use valor_camera::CameraBuilder;
 use valor_scene::Scene;
 
 const LIGHT_BLUE: [f32; 4] = [0.1, 0.2, 0.3, 1.0];
@@ -22,7 +22,7 @@ pub fn main() {
         .with_vsync(true)
         .finish();
 
-    let camera = Camera::new();
+    let camera = CameraBuilder::new().finish();
 
     // Create a scene with string ids
     let mut scene = Scene::new(SceneEntry::Empty);
@@ -44,8 +44,6 @@ pub fn main() {
     scene.translate(triangle_index, Vector3::new(0.0, -0.2, -2.0));
     scene.add_child(root, triangle_index);
 
-    // scene.find(ROOT).unwrap().add_child(triangle_node);
-
     let mut running = true;
     while running {
         // Update global constant buffer
@@ -60,7 +58,6 @@ pub fn main() {
                 match entry {
                     SceneEntry::Model(ref model) => {
                         // Update locals with transform
-                        // TODO: cache locals on scene graph
                         let u_world: [[f32; 4]; 4] = transform.into();
 
                         // Ensure usage of the correct material here

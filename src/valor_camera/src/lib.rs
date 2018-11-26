@@ -10,6 +10,9 @@
 //! let mut camera = Camera::new();
 //! ```
 
+mod builder;
+
+pub use crate::builder::CameraBuilder;
 use cgmath::{perspective, Deg, Matrix4, Vector3};
 
 /// Perspective camera with positioning controls.
@@ -27,25 +30,29 @@ pub struct Camera {
     perspective: Matrix4<f32>,
     pitch: f32,
     yaw: f32,
+    sensitivity: f32,
 }
-
-const SENSITIVITY: f32 = 1.3 / 20.0;
-const FOV: f32 = 90.0;
 
 impl Camera {
     /// Create a new camera with some default attributes
-    pub fn new() -> Self {
+    pub fn new(perspective: Matrix4<f32>, sensitivity: f32) -> Self {
         let position = Vector3::new(0.0, 0.0, 0.0);
-
-        let aspect = 4.0 / 3.0;
-        let perspective = perspective(Deg(FOV), aspect, 0.1, 50.0);
 
         Camera {
             position,
             perspective,
+            sensitivity,
             pitch: 0.0,
             yaw: 0.0,
         }
+    }
+
+    pub fn use_perspective(&mut self, fov: f32, aspect: f32, near: f32, far: f32) {
+        self.perspective = perspective(Deg(fov), aspect, near, far);
+    }
+
+    pub fn use_sensitivity(&mut self, sensitivity: f32) {
+        self.sensitivity = sensitivity;
     }
 
     /// Calculate the combined transformation matrix encoded by the `Camera`
@@ -60,10 +67,9 @@ impl Camera {
 
     /// Update the pitch and yaw attributes of the camera as a mouse moves
     /// `pitch_delta` and `yaw_delta` are pixel movement distances
-    // TODO: Add make sensitivity configurable
     pub fn mouse_look(&mut self, pitch_delta: f32, yaw_delta: f32) {
-        let mut pitch = self.pitch + (pitch_delta * SENSITIVITY);
-        let yaw = self.yaw + (yaw_delta * SENSITIVITY);
+        let mut pitch = self.pitch + (pitch_delta * self.sensitivity);
+        let yaw = self.yaw + (yaw_delta * self.sensitivity);
 
         // Do not let the player look backwards up or down
         if pitch < -90.0 {

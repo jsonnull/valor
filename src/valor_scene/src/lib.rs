@@ -5,7 +5,8 @@ mod traversal;
 pub use crate::node::Node;
 pub use crate::traversal::Traversal;
 use cgmath::Vector3;
-use generational_arena::{Arena, Index};
+use generational_arena::Arena;
+pub use generational_arena::Index;
 
 /// A directed acyclic graph for models with transformations at each node.
 pub struct Scene<T> {
